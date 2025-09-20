@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -8,14 +9,21 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-const activityData = Array.from({ length: 365 }, (_, i) => {
-  const date = new Date();
-  date.setDate(date.getDate() - 365 + i);
-  return {
-    date: date.toISOString().split("T")[0],
-    count: Math.floor(Math.random() * 5),
-  };
-});
+type ActivityDay = {
+  date: string;
+  count: number;
+};
+
+const generateActivityData = () => {
+    return Array.from({ length: 365 }, (_, i) => {
+        const date = new Date();
+        date.setDate(date.getDate() - 365 + i);
+        return {
+        date: date.toISOString().split("T")[0],
+        count: Math.floor(Math.random() * 5),
+        };
+    });
+}
 
 const getDayOfWeek = (dateString: string) => {
   const date = new Date(dateString);
@@ -23,6 +31,17 @@ const getDayOfWeek = (dateString: string) => {
 };
 
 export function ActivityChart() {
+  const [activityData, setActivityData] = useState<ActivityDay[]>([]);
+
+  useEffect(() => {
+    setActivityData(generateActivityData());
+  }, []);
+  
+  if (activityData.length === 0) {
+      // You can return a loading skeleton here if you want
+      return null;
+  }
+
   // Pad the start of the data to align the first day to the correct column
   const firstDayOfWeek = getDayOfWeek(activityData[0].date);
   const emptyDays = Array(firstDayOfWeek).fill(null);
@@ -39,7 +58,7 @@ export function ActivityChart() {
       if (i === 0 || new Date(d.date).getDate() === 1) {
         return {
           month: new Date(d.date).toLocaleString("default", { month: "short" }),
-          weekIndex: Math.floor(i / 7),
+          weekIndex: Math.floor((i + firstDayOfWeek) / 7),
         };
       }
       return null;
@@ -57,9 +76,9 @@ export function ActivityChart() {
   return (
     <TooltipProvider>
       <div className="flex flex-col items-center">
-        <div className="flex justify-start w-full gap-4 pl-10 mb-2 text-xs text-muted-foreground">
+        <div className="relative h-6 w-full">
             {monthLabels.map((label, index) => (
-                <div key={index} style={{ transform: `translateX(${(label?.weekIndex || 0) * 16}px)`}} className="absolute">
+                <div key={index} style={{ left: `${(label?.weekIndex || 0) * 16 + 40}px`}} className="absolute text-xs text-muted-foreground">
                     {label?.month}
                 </div>
             ))}
