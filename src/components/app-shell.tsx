@@ -158,7 +158,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
             <div className="flex items-center gap-2">
-               <I8HLogo className="h-8 w-8" />
+               <I8HLogo className="h-10 w-10" />
               <span className="font-semibold">Created by I8H</span>
             </div>
           </div>
