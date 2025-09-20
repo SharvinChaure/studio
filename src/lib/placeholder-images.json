@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "1",
+      "description": "A focused young man with glasses, working on a laptop.",
+      "imageUrl": "https://picsum.photos/seed/1/200/200",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "2",
+      "description": "A smiling young woman with dark hair, in a professional setting.",
+      "imageUrl": "https://picsum.photos/seed/2/200/200",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "3",
+      "description": "A man with a beard, looking thoughtfully at a whiteboard.",
+      "imageUrl": "https://picsum.photos/seed/3/200/200",
+      "imageHint": "man thinking"
+    },
+    {
+      "id": "4",
+      "description": "A woman with short hair, smiling in an outdoor setting.",
+      "imageUrl": "https://picsum.photos/seed/4/200/200",
+      "imageHint": "woman smiling"
+    },
+    {
+      "id": "5",
+      "description": "A young man in a casual shirt, posing against a colorful wall.",
+      "imageUrl": "https://picsum.photos/seed/5/200/200",
+      "imageHint": "man casual"
+    }
+  ]
 }
