@@ -133,7 +133,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </Avatar>
                   <div className="flex flex-col truncate">
                     <span className="font-medium text-sidebar-foreground">Sharvin</span>
-                    <span className="text-xs text-sidebar-foreground">
+                    <span className="text-xs text-sidebar-foreground/80">
                       sharv@example.com
                     </span>
                   </div>
@@ -194,94 +194,103 @@ function I8HLogo(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
-      viewBox="0 0 120 120"
+      viewBox="0 0 200 200"
       xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: 'rgb(255,0,255)', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: 'rgb(0,255,255)', stopOpacity: 1 }} />
+        <linearGradient id="grad-blue-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style={{ stopColor: '#4d4dff', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#b300b3', stopOpacity: 1 }} />
         </linearGradient>
-        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: 'rgb(0,0,255)', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: 'rgb(255,105,180)', stopOpacity: 1 }} />
+        <linearGradient id="grad-red-orange" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{ stopColor: '#ff3333', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#ff9933', stopOpacity: 1 }} />
         </linearGradient>
-        <pattern id="circuit" patternUnits="userSpaceOnUse" width="10" height="10">
-          <path d="M0 5L2 5M2 5L2 0M2 5L2 10M2 5L4 5M4 5L5 4M4 5L5 6M8 5L10 5M8 5L8 0M8 5L8 10M8 5L6 5M6 5L5 4M6 5L5 6" stroke="white" strokeWidth="0.5" />
+        <pattern id="circuit-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+          <path d="M 0 5 H 10 M 5 0 V 10" stroke="#80ccff" strokeWidth="0.5" />
+          <circle cx="5" cy="5" r="1" fill="#80ccff" />
         </pattern>
       </defs>
 
-      {/* <!-- 8 shape --> */}
-      <path
-        d="M60,35 A15,15 0 1,0 60,5 M60,35 A15,15 0 1,1 60,5"
-        fill="url(#circuit)"
-        stroke="url(#grad1)"
-        strokeWidth="2"
-      />
-      <path
-        d="M60,85 A15,15 0 1,0 60,65 M60,85 A15,15 0 1,1 60,65"
-        fill="url(#grad2)"
-        stroke="url(#grad2)"
-        strokeWidth="2"
-      >
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          from="0 60 75"
-          to="360 60 75"
-          dur="10s"
-          repeatCount="indefinite"
-        />
-      </path>
-      {/* <!-- Gear part of 8 --> */}
-      <circle cx="60" cy="75" r="17" fill="none" stroke="url(#grad2)" strokeWidth="4" />
-      <g transform="translate(60,75)">
-        {[...Array(8)].map((_, i) => (
-          <line
-            key={i}
-            x1="15"
-            y1="0"
-            x2="20"
-            y2="0"
-            stroke="url(#grad2)"
-            strokeWidth="3"
-            transform={`rotate(${i * 45})`}
-          />
-        ))}
+      {/* <!-- Background elements --> */}
+      <g opacity="0.7">
+        <path d="M 50 120 A 50 50 0 0 1 150 120" fill="none" stroke="#ff4d4d" strokeWidth="2" strokeDasharray="5,5" />
+        <path d="M 40 100 L 20 90" stroke="#4d4dff" strokeWidth="1" />
+        <path d="M 40 110 L 20 110" stroke="#4d4dff" strokeWidth="1" />
+        <path d="M 40 120 L 20 130" stroke="#4d4dff" strokeWidth="1" />
+      </g>
+      
+      {/* <!-- Number 8 - Gear and Circuit --> */}
+      <g>
+        {/* <!-- Gear half (left) --> */}
+        <path d="M 100 55 A 25 25 0 1 1 100 105" fill="none" stroke="#333" strokeWidth="12" />
+        <g transform="translate(100, 80)">
+          {[...Array(8)].map((_, i) => (
+             <path key={i} d="M 0 -35 L -5 -40 H 5 L 0 -35" fill="#333" transform={`rotate(${i * 45})`} />
+          ))}
+        </g>
+        <circle cx="100" cy="80" r="28" fill="none" />
+
+        {/* <!-- Circuit half (right) --> */}
+        <path d="M 100 55 A 25 25 0 1 0 100 105" fill="url(#circuit-pattern)" stroke="url(#grad-blue-purple)" strokeWidth="4" />
+        <path d="M 100 55 A 25 25 0 1 0 100 105" fill="none" stroke="url(#grad-blue-purple)" strokeWidth="4" opacity="0.5"/>
       </g>
 
-
       {/* <!-- Skull --> */}
-      <g transform="translate(60, 45) scale(0.2)">
-        <path d="M-25,10 C-35,-20 35,-20 25,10 L25,30 C25,40 -25,40 -25,30 Z" fill="rgb(200,200,255)" />
-        <circle cx="-10" cy="-5" r="5" fill="black" />
-        <circle cx="10" cy="-5" r="5" fill="black" />
-        <rect x="-5" y="15" width="10" height="5" fill="black" />
-        {/* <!-- headset --> */}
-        <path d="M-30,-10 C-10,-40 10,-40 30,-10" stroke="red" strokeWidth="4" fill="none" />
-        <rect x="-35" y="-15" width="10" height="10" fill="purple" rx="2"/>
-        <rect x="25" y="-15" width="10" height="10" fill="purple" rx="2"/>
-        <text x="-33" y="-7" fill="white" fontSize="8" fontWeight="bold">h</text>
+      <g transform="translate(100, 80) scale(0.4)">
+        {/* <!-- Skull shape (low-poly) --> */}
+        <path d="M 0 -20 L -25 0 L -20 30 L 20 30 L 25 0 Z" fill="url(#grad-blue-purple)" stroke="#cce6ff" strokeWidth="1"/>
+        <path d="M 0 -20 L -10 -10 L 0 0 L 10 -10 Z" fill="#99d6ff"/>
+        <path d="M -25 0 L -15 10 L 0 0 L -10 -10 Z" fill="#66bfff"/>
+        <path d="M 25 0 L 15 10 L 0 0 L 10 -10 Z" fill="#66bfff" />
+        <path d="M -20 30 L -10 20 L 10 20 L 20 30 Z" fill="#33a6ff"/>
+        <path d="M -5 20 L 0 28 L 5 20 Z" fill="#008ae6"/>
+        
+        {/* <!-- Teeth --> */}
+        <rect x="-12" y="20" width="4" height="6" fill="#ccc"/>
+        <rect x="-6" y="20" width="4" height="7" fill="#fff"/>
+        <rect x="0" y="20" width="4" height="6" fill="#ccc"/>
+        <rect x="6" y="20" width="4" height="7" fill="#fff"/>
+
+        {/* <!-- Goggles --> */}
+        <path d="M -30 -5 H 30 V -25 H -30 Z" fill="rgba(20, 20, 50, 0.8)" stroke="#80ccff" strokeWidth="1.5" rx="5"/>
+        <text x="-5" y="-12" fontFamily="sans-serif" fontSize="12" fontWeight="bold" fill="#fff">h</text>
+        <path d="M -10 -25 V -30 H -20 V -25" fill="none" stroke="#80ccff" strokeWidth="1"/>
+        <path d="M 10 -25 V -30 H 20 V -25" fill="none" stroke="#80ccff" strokeWidth="1"/>
       </g>
       
       {/* <!-- Rocket --> */}
-      <g transform="translate(80, 10) rotate(30)">
-        <path d="M0,-15 L5,5 L-5,5 Z" fill="url(#grad1)" />
-        <rect x="-3" y="5" width="6" height="5" fill="red" />
-        <path d="M-5,10 Q0,15 5,10" stroke="orange" strokeWidth="2" fill="yellow" />
+      <g transform="translate(125, 40) rotate(-30) scale(0.6)">
+        <path d="M 0 -30 L 15 10 L -15 10 Z" fill="#2c3e50" stroke="#3498db" strokeWidth="1.5"/>
+        <path d="M 0 -20 C 5 -10, 5 0, 0 10 C -5 0, -5 -10, 0 -20" fill="url(#circuit-pattern)" opacity="0.7"/>
+        <circle cx="0" cy="-15" r="5" fill="#3498db" stroke="white" strokeWidth="0.5"/>
+        <path d="M -10 10 L -15 20 H -5 Z" fill="#e74c3c"/>
+        <path d="M 10 10 L 15 20 H 5 Z" fill="#e74c3c"/>
+        <rect x="-5" y="10" width="10" height="10" fill="#f1c40f"/>
+        <path d="M -2 20 L -2 25 M 0 20 L 0 25 M 2 20 L 2 25" stroke="#f39c12" strokeWidth="1.5"/>
       </g>
       
       {/* <!-- Text --> */}
-      <text x="30" y="110" fontFamily="sans-serif" fontSize="14" fill="url(#grad1)" fontWeight="bold">
-        INNOV
-        <tspan dy="-2" fontSize="12" fill="white">8</tspan>
-        <tspan dx="0" dy="0">HACKERS</tspan>
-      </text>
-
-      {/* <!-- Padlock Icon --> */}
-      <g transform="translate(72, 100) scale(0.1)">
-        <rect x="-10" y="0" width="20" height="15" fill="white" rx="2"/>
-        <path d="M-15,0 C-15,-15 15,-15 15,0" stroke="white" strokeWidth="3" fill="none"/>
+      <g transform="translate(0, 150)">
+        <text x="25" y="10" fontFamily="sans-serif" fontSize="18" fontWeight="bold" fill="#34495e">
+          INN
+        </text>
+        <g transform="translate(72, 4)">
+          <rect x="-7" y="-7" width="14" height="12" rx="2" fill="#555" />
+          <path d="M 0 -7 A 5 5 0 0 1 0 -13 H 0 A 5 5 0 0 1 0 -7" fill="none" stroke="#aaa" strokeWidth="1.5" />
+          <circle cx="0" cy="0" r="1.5" fill="#aaa"/>
+        </g>
+        <text x="88" y="10" fontFamily="sans-serif" fontSize="18" fontWeight="bold" fill="#34495e">
+          VE
+        </text>
+        <g transform="translate(130, 10)">
+          <path d="M 0 0 H 10 M 0 -5 H 10 M 0 -10 H 10" stroke="#32cd32" strokeWidth="2.5" />
+        </g>
+        
+        <text x="50" y="30" fontFamily="sans-serif" fontSize="14" fontWeight="bold" fill="#2c3e50">
+          HACKERS
+        </text>
       </g>
     </svg>
   );
