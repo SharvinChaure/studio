@@ -93,7 +93,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   : pathname.startsWith(item.href);
               return (
                 <SidebarMenuItem key={item.label}>
-                  <Link href={item.href} legacyBehavior={false}>
+                  <Link href={item.href}>
                     <SidebarMenuButton
                       isActive={isActive}
                       tooltip={{
@@ -121,32 +121,34 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <div className="group/menu-item relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={placeholderImages[0].imageUrl}
-                    alt="I8H"
-                    data-ai-hint="avatar"
-                  />
-                  <AvatarFallback>I</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col truncate">
-                  <span className="font-medium">I8H</span>
-                  <span className="text-xs text-muted-foreground">
-                    i8h@example.com
-                  </span>
+               <Link href="/profile" className="w-full">
+                <div className="group/menu-item relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm hover:bg-sidebar-accent">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage
+                      src={placeholderImages[0].imageUrl}
+                      alt="Sharvin"
+                      data-ai-hint="avatar"
+                    />
+                    <AvatarFallback>S</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col truncate">
+                    <span className="font-medium">Sharvin</span>
+                    <span className="text-xs text-muted-foreground">
+                      sharv@example.com
+                    </span>
+                  </div>
+                  <SidebarMenuButton
+                    size="icon"
+                    variant="ghost"
+                    className={cn(
+                      "absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover/menu-item:opacity-100",
+                      "group-data-[collapsible=icon]:hidden"
+                    )}
+                  >
+                    <LogOut />
+                  </SidebarMenuButton>
                 </div>
-                <SidebarMenuButton
-                  size="icon"
-                  variant="ghost"
-                  className={cn(
-                    "absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover/menu-item:opacity-100",
-                    "group-data-[collapsible=icon]:hidden"
-                  )}
-                >
-                  <LogOut />
-                </SidebarMenuButton>
-              </div>
+              </Link>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
@@ -156,7 +158,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <I8HLogo className="h-8 w-8" />
+               <I8HLogo className="h-8 w-8" />
               <span className="font-semibold">Created by I8H</span>
             </div>
           </div>
