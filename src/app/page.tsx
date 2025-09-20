@@ -1,204 +1,86 @@
-import {
-  BrainCircuit,
-  Code,
-  FileText,
-  Flame,
-  Star,
-  Target,
-} from "lucide-react";
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { progressData, skills, suggestedPaths } from "@/lib/data";
-import { placeholderImages } from "@/lib/placeholder-images.json";
-import { MonthlyProgressChart } from "@/components/client/monthly-progress-chart";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { User, Lock, LogIn } from "lucide-react";
 
-export default function DashboardPage() {
+export default function LoginPage() {
+  const [username, setUsername] = useState("Sharvin");
+  const [password, setPassword] = useState("1111");
+  const router = useRouter();
+
+  const handleLogin = () => {
+    // Basic validation
+    if (username === "Sharvin" && password === "1111") {
+      router.push("/dashboard");
+    } else {
+      alert("Invalid credentials!");
+    }
+  };
+
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="font-headline text-3xl font-bold tracking-tight">
-          Welcome back, Sharvin!
-        </h1>
-        <p className="text-muted-foreground">
-          Here&apos;s a snapshot of your journey from campus to career.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              Quizzes Completed
-            </CardTitle>
-            <BrainCircuit className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {progressData.quizzesCompleted}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +10% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              Coding Challenges Solved
-            </CardTitle>
-            <Code className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {progressData.codingChallengesSolved}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +12% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              Resume ATS Score
-            </CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {progressData.resumeAtsScore}%
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Top 20% of applicants
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <MonthlyProgressChart />
-        <div className="flex flex-col gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline">Gamification</CardTitle>
-              <CardDescription>
-                Your stats and unlocked achievements.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex justify-around">
-              <div className="flex flex-col items-center gap-1 text-center">
-                <div className="flex items-center gap-2">
-                  <Flame className="h-6 w-6 text-orange-500" />
-                  <span className="text-2xl font-bold">
-                    {progressData.streak}
-                  </span>
-                </div>
-                <span className="text-sm text-muted-foreground">Day Streak</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 text-center">
-                <div className="flex items-center gap-2">
-                  <Star className="h-6 w-6 text-yellow-500" />
-                  <span className="text-2xl font-bold">
-                    {progressData.xp.toLocaleString()}
-                  </span>
-                </div>
-                <span className="text-sm text-muted-foreground">XP Points</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 text-center">
-                <div className="relative">
-                  <Image
-                    src={placeholderImages[0].imageUrl}
-                    alt="Current Badge"
-                    width={32}
-                    height={32}
-                    className="rounded-full"
-                    data-ai-hint="avatar"
-                  />
-                </div>
-                <span className="mt-2 text-sm text-muted-foreground">
-                  {progressData.badges[0]}
-                </span>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline">Skill Heatmap</CardTitle>
-              <CardDescription>
-                Your proficiency across different topics.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <Badge
-                    key={skill.name}
-                    variant="outline"
-                    className="py-1 px-3 text-sm"
-                    style={{
-                      borderColor: `hsl(var(--primary) / ${skill.level / 100})`,
-                      backgroundColor: `hsl(var(--primary) / ${
-                        skill.level / 100 / 2
-                      })`,
-                    }}
-                  >
-                    {skill.name}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-4">
-            <div className="rounded-full bg-primary/10 p-3">
-              <Target className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="font-headline">
-                Personalized Learning Path
-              </CardTitle>
-              <CardDescription>
-                AI-powered suggestions to focus your practice based on your
-                performance.
-              </CardDescription>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background to-muted/40">
+      <Card className="w-full max-w-sm shadow-2xl">
+        <CardHeader className="text-center">
+          <div className="mb-4 inline-block rounded-lg bg-primary p-4">
+            <User className="h-8 w-8 text-primary-foreground" />
+          </div>
+          <CardTitle className="font-headline text-3xl">Welcome Back</CardTitle>
+          <CardDescription>
+            Sign in to continue your journey
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="username">Username</Label>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="username"
+                type="text"
+                placeholder="sharvin"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="pl-10"
+                required
+              />
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {suggestedPaths.map((path, index) => (
-            <div key={index}>
-              <h4 className="font-semibold">{path.topic}</h4>
-              <p className="text-sm text-muted-foreground">{path.reason}</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {path.resources.map((resource, rIndex) => (
-                  <Button
-                    key={rIndex}
-                    variant="link"
-                    className="h-auto p-0 text-sm"
-                  >
-                    {resource}
-                  </Button>
-                ))}
-              </div>
-              {index < suggestedPaths.length - 1 && (
-                <Separator className="my-4" />
-              )}
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="pl-10"
+                required
+              />
             </div>
-          ))}
+          </div>
         </CardContent>
+        <CardFooter className="flex flex-col gap-4">
+          <Button className="w-full" onClick={handleLogin}>
+            <LogIn className="mr-2" />
+            Login
+          </Button>
+          <Button variant="link" size="sm" className="text-muted-foreground">
+            Forgot password?
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   );

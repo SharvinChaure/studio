@@ -32,7 +32,7 @@ import Image from 'next/image';
 
 const navItems = [
   {
-    href: "/",
+    href: "/dashboard",
     icon: LayoutDashboard,
     label: "Dashboard",
   },
@@ -71,6 +71,10 @@ const navItems = [
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
+  if (pathname === "/") {
+    return <>{children}</>;
+  }
+
   return (
     <SidebarProvider>
       <Sidebar>
@@ -88,8 +92,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             {navItems.map((item) => {
               const isActive =
-                item.href === "/"
-                  ? pathname === "/"
+                item.href === "/dashboard"
+                  ? pathname === "/dashboard"
                   : pathname.startsWith(item.href);
               return (
                 <SidebarMenuItem key={item.label}>

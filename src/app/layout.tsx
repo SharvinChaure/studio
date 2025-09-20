@@ -3,6 +3,7 @@ import { AppShell } from "@/components/app-shell";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
+
 export const metadata: Metadata = {
   title: "Campus2Career",
   description: "Your personalized platform to bridge the gap between campus and career.",
@@ -13,6 +14,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
