@@ -28,6 +28,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { placeholderImages } from "@/lib/placeholder-images.json";
+import Image from 'next/image';
 
 const navItems = [
   {
@@ -154,7 +155,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <header className="sticky top-0 z-10 flex h-14 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
-            <span className="font-semibold">Created by I8H</span>
+            <div className="flex items-center gap-2">
+              <Image src="/i8h-logo.png" alt="I8H Logo" width={32} height={32} />
+              <span className="font-semibold">Created by I8H</span>
+            </div>
           </div>
         </header>
         <main className="flex-1 p-4 md:p-6">{children}</main>
