@@ -156,7 +156,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <Image src="/i8h-logo.png" alt="I8H Logo" width={32} height={32} />
+              <I8HLogo className="h-8 w-8" />
               <span className="font-semibold">Created by I8H</span>
             </div>
           </div>
@@ -184,6 +184,18 @@ function TargetIcon(props: React.SVGProps<SVGSVGElement>) {
       <circle cx="12" cy="12" r="10" />
       <circle cx="12" cy="12" r="6" />
       <circle cx="12" cy="12" r="2" />
+    </svg>
+  );
+}
+
+function I8HLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg 
+      {...props}
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path fillRule="evenodd" clipRule="evenodd" d="M10 0C4.47715 0 0 4.47715 0 10V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V10C100 4.47715 95.5228 0 90 0H10ZM36.5 75H25.5V25H36.5V75ZM53 40V25H64V40H53ZM53 75V46.5H64V75H53ZM71 25H82V75H71V25Z" fill="currentColor"/>
     </svg>
   );
 }
