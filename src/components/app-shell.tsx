@@ -133,7 +133,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </Avatar>
                   <div className="flex flex-col truncate">
                     <span className="font-medium">Sharvin</span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs text-sidebar-foreground">
                       sharv@example.com
                     </span>
                   </div>
