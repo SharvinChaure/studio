@@ -92,18 +92,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   : pathname.startsWith(item.href);
               return (
                 <SidebarMenuItem key={item.label}>
-                  <SidebarMenuButton
-                    as={Link}
-                    href={item.href}
-                    isActive={isActive}
-                    tooltip={{
-                      children: item.label,
-                      className: "font-body",
-                    }}
-                  >
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
+                  <Link href={item.href} passHref>
+                    <SidebarMenuButton
+                      as="a"
+                      isActive={isActive}
+                      tooltip={{
+                        children: item.label,
+                        className: "font-body",
+                      }}
+                    >
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </Link>
                 </SidebarMenuItem>
               );
             })}
@@ -124,15 +125,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Avatar className="h-8 w-8">
                   <AvatarImage
                     src={placeholderImages[0].imageUrl}
-                    alt="Alex"
+                    alt="I8H"
                     data-ai-hint="avatar"
                   />
-                  <AvatarFallback>A</AvatarFallback>
+                  <AvatarFallback>I</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col truncate">
-                  <span className="font-medium">Alex Marshall</span>
+                  <span className="font-medium">I8H</span>
                   <span className="text-xs text-muted-foreground">
-                    alex.m@example.com
+                    i8h@example.com
                   </span>
                 </div>
                 <SidebarMenuButton
@@ -154,7 +155,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <header className="sticky top-0 z-10 flex h-14 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
-            {/* Can add breadcrumbs or page title here */}
+            <span className="font-semibold">Created by I8H</span>
           </div>
         </header>
         <main className="flex-1 p-4 md:p-6">{children}</main>

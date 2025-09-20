@@ -26,7 +26,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="font-headline text-3xl font-bold tracking-tight">
-          Welcome back, Alex!
+          Welcome back!
         </h1>
         <p className="text-muted-foreground">
           Here&apos;s a snapshot of your journey from campus to career.
