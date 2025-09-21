@@ -15,6 +15,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Lock, LogIn } from "lucide-react";
 
+function TargetIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  );
+}
+
 export default function LoginPage() {
   const [username, setUsername] = useState("Sharvin");
   const [password, setPassword] = useState("1111");
@@ -35,8 +56,11 @@ export default function LoginPage() {
       <Card className="w-full max-w-sm shadow-2xl">
         <form onSubmit={handleLogin}>
           <CardHeader className="text-center">
-            <div className="mb-4 inline-block rounded-lg bg-primary p-4">
-              <User className="h-8 w-8 text-primary-foreground" />
+            <div className="mb-4 flex flex-col items-center justify-center gap-2">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary">
+                    <TargetIcon className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h1 className="font-headline text-2xl font-bold">Campus2Career</h1>
             </div>
             <CardTitle className="font-headline text-3xl">Welcome Back</CardTitle>
             <CardDescription>
